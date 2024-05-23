@@ -1,0 +1,37 @@
+package:
+  name: extra-npm
+  version: 1.0
+  epoch: 0
+  description: "util npm packages"
+
+  dependencies:
+    runtime:
+      - nodejs
+      - npm
+
+environment:
+  contents:
+    packages:
+      - wolfi-base
+      - nodejs
+      - npm
+
+pipeline:
+  - runs: |
+      npm install -g marked@latest playwright@latest
+
+  - runs: |
+      mkdir -p "${{targets.destdir}}/usr/bin"
+      mkdir -p "${{targets.destdir}}/usr/share/man"
+      cp -R -a /usr/local/share/man/man1 "${{targets.destdir}}/usr/share/man/man1"
+      cp -R -a /usr/local/bin/* "${{targets.destdir}}/usr/bin/"
+
+test:
+  pipeline:
+    - name: Verify can use marked
+      runs: |
+        marked --version || exit 1
+
+    - name: Verify can use playwright
+      runs: |
+        playwright --version || exit 1
