@@ -26,7 +26,8 @@ pipeline:
       mkdir -p "${{targets.destdir}}/usr/bin/node_modules"
       cp -R -a /usr/local/share/man/man1 "${{targets.destdir}}/usr/share/man/man1"
       cp -R -a /usr/local/bin/* "${{targets.destdir}}/usr/bin/"
-      cp -R -a /usr/local/lib/node_modules/* "${{targets.destdir}}/usr/bin/node_modules/"
+      cp -R -a /usr/local/lib/node_modules/marked "${{targets.destdir}}/usr/lib/node_modules/marked"
+      cp -R -a /usr/local/lib/node_modules/playwright "${{targets.destdir}}/usr/lib/node_modules/playwright"
 
 test:
   pipeline:
