@@ -18,7 +18,7 @@ environment:
       - freetype-dev
       - fontconfig-dev
       - libnss-dev
-      - libnspr-devj
+      - libnspr-dev
       - tiff-dev
       - zlib-dev
       - openjpeg-dev
