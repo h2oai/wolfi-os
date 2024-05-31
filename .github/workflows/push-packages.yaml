@@ -34,4 +34,4 @@ jobs:
 
       - name: Upload index to s3
         run: |
-          aws s3 cp --recursive packages/x86_64 s3://wolfi-packages/x86_64
+          aws s3 cp --recursive packages/x86_64 s3://wolfi-packages/x86_64 --acl public-read
