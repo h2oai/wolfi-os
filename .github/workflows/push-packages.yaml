@@ -16,8 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Save private key to temp file
-        run: |
-          echo "$SECRET" > melange.rsa
+        run: 'echo "$SECRET" > melange.rsa'
         with:
           SECRET: ${{ secrets.MELANGE_PRIVATE_KEY }}
 
