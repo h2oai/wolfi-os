@@ -15,10 +15,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Save private key to temp file
+        run: |
+          echo "$SECRET" > melange.rsa
+        with:
+          SECRET: ${{ secrets.MELANGE_PRIVATE_KEY }}
+
       # TODO: if new packages list grows, automation of listing packages would be handy
       - name: Build packages specific to this repo
         run: |
-          docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --signing-key ${{ secrets.MELANGE_PRIVATE_KEY }} --arch=x86_64 poppler.yaml
+          docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 poppler.yaml
           
 #      - name: Configure AWS credentials
 #        uses: aws-actions/configure-aws-credentials@v1-node16
