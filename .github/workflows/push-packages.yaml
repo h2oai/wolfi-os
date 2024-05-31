@@ -17,7 +17,7 @@ jobs:
 
       - name: Save private key to temp file
         run: 'echo "$SECRET" > melange.rsa'
-        with:
+        env:
           SECRET: ${{ secrets.MELANGE_PRIVATE_KEY }}
 
       # TODO: if new packages list grows, automation of listing packages would be handy
