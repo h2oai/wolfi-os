@@ -1,8 +1,6 @@
 name: Push packages
 
 on:
-  # TODO: remove once tested
-  pull_request:
   push:
     branches:
       - main
