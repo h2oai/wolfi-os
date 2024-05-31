@@ -20,6 +20,8 @@ environment:
       - libnss-dev
       - libnspr-dev
       - tiff-dev
+      - glib-dev
+      - glib-gir
       - zlib-dev
       - openjpeg-dev
       - openjpeg-tools
@@ -57,3 +59,6 @@ pipeline:
       -DENABLE_QT5=OFF \
       -DENABLE_QT6=OFF \
       -DENABLE_UNSTABLE_API_ABI_HEADERS=ON
+      cmake --build build
+
+  - uses: strip
