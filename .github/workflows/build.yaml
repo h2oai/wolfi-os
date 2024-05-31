@@ -1,0 +1,17 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # TODO: if new packages list grows, automation of listing packages would be handy
+      - name: Build packages specific to this repo
+        run: |
+          docker run --privileged --rm -v (pwd):/work cgr.dev/chainguard/melange build --arch=x86_64 poppler.yaml
