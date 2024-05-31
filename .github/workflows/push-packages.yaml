@@ -39,3 +39,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: wolfi-packages
           source_dir: packages/x86_64
+          destination_dir: x86_64
