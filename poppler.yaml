@@ -53,12 +53,29 @@ pipeline:
       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_SYSTEM_NAME=Linux \
+      -DCMAKE_HOST_SYSTEM_NAME=Linux \
       -DENABLE_BOOST=ON \
       -DENABLE_GPGME=OFF \
       -DENABLE_LIBCURL=OFF \
       -DENABLE_QT5=OFF \
       -DENABLE_QT6=OFF \
-      -DENABLE_UNSTABLE_API_ABI_HEADERS=ON
-      cmake --build build
+      -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+      -DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE \
+      -DCMAKE_INSTALL_RPATH=/usr/bin
+
+  - runs: |
+      cmake --build build     
+
+  - runs: |
+      DESTDIR="${{targets.destdir}}" cmake --install build
 
   - uses: strip
+
+#subpackages:
+#  - name: poppler-utils
+#    pipeline:
+#      - runs: |
+#          mkdir -p ${{targets.subpkgdir}}/usr
+#          mv ${{targets.destdir}}/usr/bin ${{targets.subpkgdir}}/usr/
+#    description: Utils for The Berkeley DB embedded database system
