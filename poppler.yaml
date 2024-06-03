@@ -71,11 +71,3 @@ pipeline:
       DESTDIR="${{targets.destdir}}" cmake --install build
 
   - uses: strip
-
-#subpackages:
-#  - name: poppler-utils
-#    pipeline:
-#      - runs: |
-#          mkdir -p ${{targets.subpkgdir}}/usr
-#          mv ${{targets.destdir}}/usr/bin ${{targets.subpkgdir}}/usr/
-#    description: Utils for The Berkeley DB embedded database system
