@@ -2,6 +2,7 @@
 #include <soci/postgresql/soci-postgresql.h> // This is crucial
 #include <iostream>
 #include <string>
+#include <stdexcept> // For standard exceptions
 #include <cassert>
 
 using namespace std;
@@ -9,22 +10,35 @@ using namespace soci;
 
 int main() {
     try {
-        soci::session sql("postgresql://dbname=testdb user=wolfi");
-        int id = 1; // Assuming this is the ID of the inserted record
+        // Establish connection to the PostgreSQL database
+        session sql("postgresql://dbname=testdb user=wolfi");
+
+        int id = 1; // Assuming this is the ID of the record to be queried
         string name;
         int salary;
 
-        sql << "select name, salary from persons where id = :id", use(id), into(name), into(salary);
+        // Prepare and execute the SQL query
+        sql << "SELECT name, salary FROM persons WHERE id = :id", use(id), into(name), into(salary);
 
-        // Check if the returned values match the expected "Wolfi Rocks" and 50000
+        // Validate the fetched data
         assert(name == "Wolfi Rocks" && salary == 50000);
 
+        // Output the result if the assertion passes
         cout << "Test Passed: Name: " << name << ", Salary: " << salary << endl;
+
     } catch (const soci::soci_error& e) {
+        // Catch and report any database-related errors
         cerr << "Database error: " << e.what() << endl;
         return 1;
+
     } catch (const exception& e) {
+        // Catch and report any other standard exceptions
         cerr << "Error: " << e.what() << endl;
+        return 1;
+
+    } catch (...) {
+        // Catch and report any non-standard exceptions
+        cerr << "Unknown error occurred" << endl;
         return 1;
     }
 
