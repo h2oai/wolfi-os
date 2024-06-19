@@ -1,0 +1,79 @@
+package:
+  name: libspatialindex
+  version: 1.9.3
+  epoch: 1
+  description: extensible framework for robust spatial indexing methods
+  copyright:
+    - license: MIT
+
+environment:
+  contents:
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
+    packages:
+      - autoconf
+      - automake
+      - build-base
+      - busybox
+      - ca-certificates-bundle
+      - cairo-dev
+      - expat-dev
+      - freetype-dev
+      - glib-dev
+      - glib-gir
+      - gobject-introspection-dev
+      - graphite2-dev
+      - icu-dev
+      - meson
+      - posix-libc-utils
+      - zlib-dev
+      - cmake
+      - gcc
+      - ninja
+      - boost-dev
+
+pipeline:
+  - uses: fetch
+    with:
+      expected-sha256: 47d8779e32477b330e46b62fb7e62cb812caee5d8e684c35cb635a42a749f3fc
+      uri: https://github.com/libspatialindex/libspatialindex/releases/download/${{package.version}}/spatialindex-src-${{package.version}}.tar.gz
+
+#  - uses: meson/configure
+#    with:
+#      opts: |
+#        --default-library=both \
+#        -Dglib=enabled \
+#        -Dgobject=enabled \
+#        -Dgraphite=enabled \
+#        -Dicu=enabled \
+#        -Dfreetype=enabled \
+#        -Dcairo=enabled
+#
+#  - uses: meson/compile
+#
+#  - uses: meson/install
+  - runs: |
+      cmake -B build \
+        -DCMAKE_BUILD_TYPE=MinSizeRel \
+        -DCMAKE_PREFIX_PATH=/usr \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_TESTING=ON
+
+  - runs: |
+      cmake --build build     
+
+  - runs: |
+      DESTDIR="${{targets.destdir}}" cmake --install build
+      
+  - uses: strip
+
+subpackages:
+  - name: libspatialindex-dev
+    pipeline:
+      - uses: split/dev
+    dependencies:
+      runtime:
+        - libspatialindex
+    description: libspatialindex dev
