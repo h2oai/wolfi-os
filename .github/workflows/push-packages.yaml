@@ -21,8 +21,9 @@ jobs:
       # TODO: if new packages list grows, automation of listing packages would be handy
       - name: Build signed packages specific to this repo
         run: |
-          docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 poppler.yaml
-          
+          docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 poppler.yaml\          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/font-liberation1.yaml:/work/font-liberation1.yaml cgr.dev/chainguard/melange build --arch=x86_64 font-liberation1.yaml
+          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/font-liberation1.yaml:/work/font-liberation1.yaml cgr.dev/chainguard/melange build --arch=x86_64 font-liberation1.yaml      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
