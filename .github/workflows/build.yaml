@@ -14,3 +14,4 @@ jobs:
       - name: Build packages specific to this repo
         run: |
           docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --arch=x86_64 poppler.yaml
+          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/font-liberation1.yaml:/work/font-liberation1.yaml cgr.dev/chainguard/melange build --arch=x86_64 font-liberation1.yaml
