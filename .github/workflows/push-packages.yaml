@@ -24,6 +24,7 @@ jobs:
           docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 poppler.yaml
           docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/font-liberation1.yaml:/work/font-liberation1.yaml -v $(pwd)/melange.rsa:/work/melange.rsa cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 font-liberation1.yaml      
           docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/libspatialindex.yaml:/work/libspatialindex.yaml -v $(pwd)/melange.rsa:/work/melange.rsa cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 libspatialindex.yaml      
+          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/mesa22.yaml:/work/mesa22.yaml -v $(pwd)/melange.rsa:/work/melange.rsa cgr.dev/chainguard/melange build --signing-key melange.rsa --arch=x86_64 mesa22.yaml      
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
