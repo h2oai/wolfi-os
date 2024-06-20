@@ -123,19 +123,14 @@ data:
 
 subpackages:
   - range: libs
-    name: mesa-${{range.key}}
-    description: mesa ${{range.key}}
+    name: mesa22-${{range.key}}
+    description: mesa22 ${{range.key}}
     pipeline:
       - runs: |
           mkdir -p ${{targets.subpkgdir}}/usr/lib
           mv ${{targets.destdir}}/usr/lib/${{range.value}}.so* ${{targets.subpkgdir}}/usr/lib
 
-  - name: mesa-dev
+  - name: mesa22-dev
     pipeline:
       - uses: split/dev
     description: mesa dev
-
-update:
-  enabled: true
-  release-monitor:
-    identifier: 1970
