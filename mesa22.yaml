@@ -1,5 +1,5 @@
 package:
-  name: mesa
+  name: mesa22
   version: 22.3.7
   epoch: 0
   description: Mesa DRI OpenGL library
