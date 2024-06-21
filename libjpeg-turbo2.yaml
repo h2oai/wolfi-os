@@ -55,7 +55,7 @@ subpackages:
           mv doc/* "${{targets.subpkgdir}}"/usr/share/doc/libjpeg-turbo
     dependencies:
       runtime:
-        - libjpeg-turbo-dev
+        - libjpeg-turbo2-dev
 
   - name: "libjpeg-turbo2-utils"
     description: "Utilities for manipulating JPEG images"
