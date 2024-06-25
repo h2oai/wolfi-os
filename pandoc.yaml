@@ -1,0 +1,39 @@
+package:
+  name: pandoc
+  version: 3.2
+  epoch: 0
+  description: "a Universal markup converter"
+  copyright:
+    - license: GPL-2.0
+
+environment:
+  contents:
+    packages:
+      - wolfi-base
+
+pipeline:
+  - uses: fetch
+    with:
+      uri: https://github.com/jgm/pandoc/releases/download/${{package.version}}/pandoc-${{package.version}}-linux-amd64.tar.gz
+      expected-sha256: ea3f96dde56ae1577c81184694b8576d8efec52e168ce49a6e7df1441f428289
+      strip-components: 0
+
+  - runs: |
+      mkdir -p "${{targets.destdir}}/usr/bin"
+      mkdir -p "${{targets.destdir}}/usr/share/man"
+      cd pandoc-${{package.version}}
+      cp -R -a share/man/man1 "${{targets.destdir}}/usr/share/man/man1"
+      cp -R -a bin/* "${{targets.destdir}}/usr/bin/"
+
+update:
+  enabled: true
+  github:
+    identifier: jgm/pandoc
+    strip-prefix: pandoc-
+    tag-filter: pandoc-
+
+test:
+  pipeline:
+    - name: Verify can use pandoc
+      runs: |
+        pandoc --version || exit 1
