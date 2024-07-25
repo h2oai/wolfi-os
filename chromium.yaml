@@ -1,11 +1,14 @@
 #nolint:git-checkout-must-use-github-updates
 package:
   name: chromium
-  version: 124.0.6367.91
+  version: 126.0.6478.182
   epoch: 0
   description: "Open souce version of Google's chrome web browser"
   copyright:
     - license: BSD-3-Clause
+  resources:
+    cpu: 65
+    memory: 128Gi
   target-architecture:
     - x86_64
   dependencies:
@@ -117,7 +120,7 @@ pipeline:
       repository: https://chromium.googlesource.com/chromium/src.git
       tag: ${{package.version}}
       depth: 1
-      expected-commit: 51df0e5e17a8b0a4f281c1665dbd1b8a0c6b46af
+      expected-commit: 5b5d8292ddf182f8b2096fa665b473b6317906d5
       destination: /home/src
 
   - runs: |

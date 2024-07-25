@@ -1,32 +1,30 @@
 package:
   name: terraform-provider-aws
-  version: 5.48.0
+  version: 5.59.0
   epoch: 0
   description: Terraform AWS provider
   copyright:
     - license: MPL-2.0
+  resources:
+    cpu: 16
+    memory: 40Gi
   dependencies:
     runtime:
       - terraform
       - terraform-compat
       - terraform-local-provider-config
 
-environment:
-  environment:
-    CGO_ENABLED: 0
-
 pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/hashicorp/terraform-provider-aws
       tag: v${{package.version}}
-      expected-commit: a30704e58a4df006a91cf375e259fe5981b5b556
+      expected-commit: c4acee31757bf4c8792af16d773d6fa2b855ac4d
 
   - uses: go/build
     with:
       packages: .
       output: terraform-provider-aws
-      ldflags: -s -w
 
   - runs: |
       GOARCH=$(go env GOARCH)

@@ -1,6 +1,6 @@
 package:
   name: py3-botocore
-  version: 1.34.98
+  version: 1.34.148
   epoch: 0
   description: The low-level, core functionality of Boto3
   copyright:
@@ -11,7 +11,6 @@ package:
       - py3-docutils
       - py3-jmespath
       - py3-urllib3
-      - python3
 
 environment:
   contents:
@@ -27,13 +26,16 @@ pipeline:
   - uses: fetch
     with:
       uri: https://files.pythonhosted.org/packages/source/b/botocore/botocore-${{package.version}}.tar.gz
-      expected-sha256: 4cee65df02f4b0be08ad1401965cc89efafebc50ef0727d2d17083c7f1ed2831
+      expected-sha256: 258dd95570b43db9fa21cce5426eabaea5867e3a61224157650448b5019d1bbd
 
   - runs: |
       python3 setup.py build
 
   - runs: |
-      python3 setup.py install --prefix=/usr --root="${{targets.destdir}}" --skip-build
+      python3 setup.py install --prefix=/usr --root="${{targets.contextdir}}" --skip-build
+
+  # Fix permissions; this has 777 permissions by default.
+  - runs: chmod -R 755 ${{targets.contextdir}}/usr/lib/python3.12/site-packages/botocore/data/ec2/2016-11-15/waiters-2.json
 
   - uses: strip
 

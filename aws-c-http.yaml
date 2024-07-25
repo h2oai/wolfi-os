@@ -1,7 +1,7 @@
 package:
   name: aws-c-http
-  version: 0.8.1
-  epoch: 1
+  version: 0.8.4
+  epoch: 0
   description: AWS C99 implementation of the HTTP/1.1 and HTTP/2 specifications
   copyright:
     - license: Apache-2.0
@@ -23,7 +23,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 98ec73ad0c18b78ba08d40b4e60d97abf794f24d
+      expected-commit: 2c6fd577dcd50192cb541658a658aebd7b395685
       repository: https://github.com/awslabs/aws-c-http
       tag: v${{package.version}}
 

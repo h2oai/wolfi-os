@@ -1,6 +1,6 @@
 package:
   name: brew
-  version: 4.2.20
+  version: 4.3.10
   epoch: 0
   description: "The homebrew package manager"
   copyright:
@@ -48,7 +48,7 @@ pipeline:
       repository: https://github.com/Homebrew/brew
       tag: ${{package.version}}
       destination: ./brew
-      expected-commit: c2ed3327c605c3e738359c9807b8f4cd6fec09eb
+      expected-commit: c3ae0327c01aab461531bfc0fcdfb4dd3a779205
 
   - runs: |
       set -x

@@ -1,10 +1,13 @@
 package:
   name: mold
-  version: 2.31.0
+  version: 2.32.1
   epoch: 0
   description: "mold linker"
   copyright:
     - license: MIT
+  resources:
+    cpu: 10
+    memory: 8Gi
 
 environment:
   contents:
@@ -24,7 +27,7 @@ pipeline:
     with:
       repository: https://github.com/rui314/mold
       tag: v${{package.version}}
-      expected-commit: 20fa8d56f5e0c47d1f4bbf7b829c12d3f43298e1
+      expected-commit: cf1c02d097fc57113b7f9fabf1bc15f810b8b27c
 
   - name: 'Configure mold'
     runs: |

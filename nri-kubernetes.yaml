@@ -1,6 +1,6 @@
 package:
   name: nri-kubernetes
-  version: 3.28.5
+  version: 3.29.2
   epoch: 0
   description: New Relic integration for Kubernetes
   copyright:
@@ -19,11 +19,7 @@ pipeline:
     with:
       repository: https://github.com/newrelic/nri-kubernetes
       tag: v${{package.version}}
-      expected-commit: 22816d63208efa85b2a6c0bfede9410e84f9410f
-
-  - uses: go/bump
-    with:
-      deps: golang.org/x/net@v0.23.0
+      expected-commit: 306fa32512639c03109cfa7440d3e0320bde509f
 
   - runs: |
       # Our global LDFLAGS conflict with a Makefile parameter

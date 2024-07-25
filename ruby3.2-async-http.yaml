@@ -1,7 +1,7 @@
 package:
   name: ruby3.2-async-http
-  version: 0.66.2
-  epoch: 1
+  version: 0.69.0
+  epoch: 0
   description: A HTTP client and server library.
   copyright:
     - license: MIT
@@ -32,7 +32,7 @@ vars:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 827a0a8b1ccc88a8cd37acaa3b9bdd10f288d38e
+      expected-commit: 6a10cc4b4725bdb4bdeb1021d490bad1e1543ecc
       repository: https://github.com/socketry/async-http
       tag: v${{package.version}}
 

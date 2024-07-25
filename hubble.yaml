@@ -1,6 +1,6 @@
 package:
   name: hubble
-  version: 0.13.3
+  version: 0.13.6
   epoch: 0
   description: hubble is a command to list and diagnose Go processes currently running on your system.
   copyright:
@@ -19,7 +19,11 @@ pipeline:
     with:
       repository: https://github.com/cilium/hubble
       tag: v${{package.version}}
-      expected-commit: 011b6c724648d6ce2a711937b710cb42eb2489c1
+      expected-commit: ebca919509deb38bf2d40edb9b03d0c2834e9a77
+
+  - uses: go/bump
+    with:
+      deps: golang.org/x/net@v0.23.0 github.com/cilium/cilium@v1.15.6
 
   - runs: |
       DESTDIR=${{targets.destdir}} BINDIR=/usr/bin make install

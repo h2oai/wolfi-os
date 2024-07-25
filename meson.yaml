@@ -1,6 +1,6 @@
 package:
   name: meson
-  version: 1.4.0
+  version: 1.5.0
   epoch: 0
   description: Fast and user friendly build system
   copyright:
@@ -22,7 +22,7 @@ environment:
 pipeline:
   - uses: fetch
     with:
-      expected-sha256: 8fd6630c25c27f1489a8a0392b311a60481a3c161aa699b330e25935b750138d
+      expected-sha256: 45d7b8653c1e5139df35b33be2dd5b2d040c5b2c6129f9a7c890d507e33312b8
       uri: https://github.com/mesonbuild/meson/releases/download/${{package.version}}/meson-${{package.version}}.tar.gz
 
   - runs: python3 setup.py build

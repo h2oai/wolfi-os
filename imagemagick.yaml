@@ -1,6 +1,6 @@
 package:
   name: imagemagick
-  version: 7.1.1.32
+  version: 7.1.1.35
   epoch: 0
   description: Tools and libraries for manipulating common image formats
   copyright:
@@ -45,7 +45,7 @@ var-transforms:
 pipeline:
   - uses: fetch
     with:
-      expected-sha256: fda0c1a5fdf511721893014370a6303413c70e0c11f2b543a7a4aff36f8c6e92
+      expected-sha256: 438db932abbf4f08d57e89dfbfdb82403b2ced8568ded5cd0f879d8e6fb7eaf4
       uri: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/${{vars.mangled-package-version}}.tar.gz
 
   - uses: autoconf/configure
