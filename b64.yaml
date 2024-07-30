@@ -1,0 +1,32 @@
+package:
+  name: b64
+  version: 1.0
+  epoch: 0
+  description: "Base64 Encoding/Decoding Routines"
+
+environment:
+  contents:
+    packages:
+      - wolfi-base
+      - make
+      - gcc
+      - gcc-12
+      - glibc-dev
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/achraf-mer/libb64
+      tag: libs
+      expected-commit: cb048ab303f9b6c81602110ed634a9652d04dd40
+
+  - runs: |
+      CC=gcc-12 make
+
+  - runs: |
+      mkdir -p "${{targets.destdir}}/usr/include/b64"
+      mkdir -p "${{targets.destdir}}/usr/lib"
+      mkdir -p "${{targets.destdir}}/usr/bin"
+      cp -R -a include/b64/* "${{targets.destdir}}/usr/include/b64/"
+      cp -R -a src/libb64.so "${{targets.destdir}}/usr/lib/"
+      cp -R -a base64/base64 "${{targets.destdir}}/usr/bin/"
