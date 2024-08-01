@@ -36,8 +36,6 @@ environment:
       - icu-dev
       - numactl-dev
       - py3-absl-py
-      - protobuf-c-dev
-      - protobuf-c-compiler
       - libarchive-dev
       - py3-pybind11-dev
       - b64
