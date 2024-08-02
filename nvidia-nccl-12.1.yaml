@@ -1,0 +1,77 @@
+package:
+  name: nvidia-nccl-12.1
+  version: 12.1
+  epoch: 0
+  description: "Nvidia nccl cu12.1"
+
+environment:
+  contents:
+    repositories:
+      - https://packages.cgr.dev/extras
+      - https://packages.wolfi.dev/os
+    keyring:
+      - https://packages.cgr.dev/extras/chainguard-extras.rsa.pub
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    packages:
+      - wolfi-base
+      - bash
+      - git
+      - make
+      - cmake
+      - python-3.10
+      - python-3.10-dev
+      - py3.10-pip
+      - py3-pybind11-dev
+      - nvidia-cudnn-8
+      - nvidia-cuda-cudart-12.1
+      - nvidia-cuda-cudart-12.1-dev
+      - nvidia-cuda-nvcc-12.1
+      - nvidia-libcublas-12.1
+      - nvidia-cuda-cudart-12.1
+      - nvidia-cuda-cccl-12.1
+      - nvidia-cuda-nvrtc-12.1
+      - nvidia-libcurand-12.1
+      - nvidia-cuda-nvtx-12.1-dev
+      - nvidia-cuda-nvprof-12.1-dev
+      - nvidia-cuda-profiler-api-12.1
+      - nvidia-cuda-nvcc-12.1-dev
+      - nvidia-cuda-nvprof-12.1-dev
+      - nvidia-cuda-nvrtc-12.1-dev
+      - nvidia-cuda-nvtx-12.1-dev
+      - nvidia-libcurand-12.1-dev
+      - nvidia-libcublas-12.1-dev
+      - nvidia-libcusolver-12.1-dev
+      - gcc-12
+      - libstdc++-12
+      - glibc
+      - glibc-dev
+      - fmt
+      - fmt-dev
+      - shfmt
+      - gnutar
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/NVIDIA/nccl
+      tag: v2.22.3-1
+      expected-commit: 178b6b759074597777ce13438efb0e0ba625e429
+
+  - runs: |
+      export CC=/usr/bin/gcc-12
+      export CXX=/usr/bin/g++-12
+      export CUDAHOSTCXX=g++-12
+      export PATH=/usr/sbin:/sbin:/usr/bin:/bin:/usr/local/bin:/usr/local/cuda-12.1/bin
+      export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:/usr/local/cuda-12.1/lib64/stubs
+      export CUDA_HOME=/usr/local/cuda-12.1
+      export CFLAGS=-mno-avx512f
+      export CXXFLAGS=-mno-avx512f
+      
+      make -j$(nproc) pkg.txz.build
+
+  - runs: |
+      mkdir -p "${{targets.destdir}}/usr/include"
+      mkdir -p "${{targets.destdir}}/usr/lib"
+      
+      cp -R -a build/include/* "${{targets.destdir}}/usr/include/"
+      cp -R -a build/lib/* "${{targets.destdir}}/usr/lib/"
