@@ -1,0 +1,73 @@
+package:
+  name: tritonserver
+  version: 24.07
+  epoch: 0
+  description: "Triton server"
+
+environment:
+  contents:
+    repositories:
+      - https://s3.amazonaws.com/artifacts.h2o.ai/deps/h2ogpt/wolfi-registry
+    keyring:
+      - https://s3.amazonaws.com/artifacts.h2o.ai/deps/h2ogpt/wolfi-registry/local-melange.rsa.pub
+    packages:
+      - wolfi-base
+      - bash
+      - git
+      - make
+      - cmake
+      - python-3.10-dev
+      - py3.10-pip
+      - py3-requests
+      - zlib-dev
+      - openssl-dev
+      - curl-dev
+      - libbsd-dev
+      - libevent-dev
+      - rapidjson-dev
+      - unzip
+      - libxml2-dev
+      - gcc-12
+      - glibc-dev
+      - protobuf-dev
+      - boost-dev
+      - re2-dev
+      - abseil-cpp-dev
+      - icu-dev
+      - numactl-dev
+      - py3-absl-py
+      - libarchive-dev
+      - py3-pybind11-dev
+      - b64
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/achraf-mer/triton-server
+      tag: r24.07-patch1
+      expected-commit: 2e1678ff0b0b0e465668db59373c187cb3fad317
+
+  - runs: |
+      pip install requests
+
+  - runs: |
+      export CXXFLAGS="-mno-avx512f -DBOOST_NO_CXX98_FUNCTION_BASE -Wno-array-bounds -Wno-stringop-overread"
+      export CFLAGS="-mno-avx512f -DBOOST_NO_CXX98_FUNCTION_BASE -Wno-array-bounds -Wno-stringop-overread"
+      
+      export CC=gcc-12 
+      export CXX=g++-12 
+      
+      ./build.py \
+        -v \
+        --no-container-build \
+        --build-dir=`pwd`/build \
+        --enable-logging \
+        --endpoint "http" \
+        --backend "python" \
+        --extra-core-cmake-arg CC=gcc-12 \
+        --extra-core-cmake-arg TRITON_THIRD_PARTY_REPO_TAG=libevent-patch1 \
+        --extra-core-cmake-arg TRITON_CORE_REPO_TAG=r24.07-patch3
+
+  - runs: |
+      mkdir -p "${{targets.destdir}}/opt"
+      cp -R -a build/opt/* "${{targets.destdir}}/opt/"
