@@ -1,10 +1,9 @@
 name: Push packages
 
-on:
-  pull_request:
-  push:
-    branches:
-      - main
+on: [pull_request]
+#  push:
+#    branches:
+#      - main
 
 permissions:
   id-token: write
