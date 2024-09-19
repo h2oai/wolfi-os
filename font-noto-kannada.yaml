@@ -1,0 +1,50 @@
+package:
+  name: font-noto-kannada
+  version: 0.1
+  epoch: 0
+  description: Noto Kannada
+  copyright:
+    - license: OFL-1.1
+
+environment:
+  contents:
+    packages:
+      - autoconf
+      - automake
+      - build-base
+      - busybox
+      - ca-certificates-bundle
+      - fontconfig
+      - git
+      - xz
+      - cmake
+      - cairo-dev
+      - zlib-dev
+      - expat-dev
+      - python-3.10
+      - python-3.10-dev
+
+pipeline:
+  - uses: git-checkout
+    with:
+      expected-commit: 7eeac8993f890e3d8568ba909ae67f554113ea92
+      repository: https://github.com/notofonts/kannada
+      branch: main
+
+  - runs: |
+      mkdir -p "${{targets.destdir}}"/usr/share/fonts/noto
+      
+      make build
+      
+      install -Dm644 ./fonts/NotoSansKannada/googlefonts/variable-ttf/NotoSansKannada[wdth,wght].ttf -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSansKannada/full/ttf/NotoSansKannada-Regular.ttf                    -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSansKannada/full/ttf/NotoSansKannada-Bold.ttf                       -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSansKannada/full/ttf/NotoSansKannada-Light.ttf                      -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSerifKannada/full/ttf/NotoSerifKannada-Regular.ttf                  -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSerifKannada/full/ttf/NotoSerifKannada-Bold.ttf                     -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSerifKannada/full/ttf/NotoSerifKannada-Light.ttf                    -t "${{targets.destdir}}"/usr/share/fonts/noto/
+      install -Dm644 ./fonts/NotoSansKannada/full/ttf/NotoSansKannadaUI-Regular.ttf                  -t "${{targets.destdir}}"/usr/share/fonts/noto/
+
+update:
+  enabled: false
+  exclude-reason: skipped for now
