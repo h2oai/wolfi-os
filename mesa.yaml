@@ -1,5 +1,6 @@
 package:
-  name: mesa
+  # Mesa has been updated to 24.2.0 in main repo, most probably causing issues downstream
+  name: mesa2414
   version: 24.1.4
   epoch: 0
   description: Mesa DRI OpenGL library
@@ -8,6 +9,10 @@ package:
 
 environment:
   contents:
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
     packages:
       - autoconf
       - automake
@@ -119,17 +124,17 @@ data:
 
 subpackages:
   - range: libs
-    name: mesa-${{range.key}}
-    description: mesa ${{range.key}}
+    name: mesa2414-${{range.key}}
+    description: mesa2414 ${{range.key}}
     pipeline:
       - runs: |
           mkdir -p ${{targets.subpkgdir}}/usr/lib
           mv ${{targets.destdir}}/usr/lib/${{range.value}}.so* ${{targets.subpkgdir}}/usr/lib
 
-  - name: mesa-dev
+  - name: mesa2414-dev
     pipeline:
       - uses: split/dev
-    description: mesa dev
+    description: mesa2414 dev
 
 update:
   enabled: true
