@@ -1,12 +1,6 @@
 name: Build
 
-# TODO: tmp comment
-#on: [pull_request]
-on:
-  push:
-    branches:
-      - nosuchbranch
-
+on: [pull_request]
 jobs:
   build-packages:
     runs-on: ubuntu-latest
@@ -19,10 +13,10 @@ jobs:
       - name: Build packages specific to this repo
         run: |
          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/mesa.yaml:/work/mesa.yaml cgr.dev/chainguard/melange build --arch=x86_64 mesa.yaml
-      #          docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --arch=x86_64 poppler.yaml
-      #          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/font-liberation1.yaml:/work/font-liberation1.yaml cgr.dev/chainguard/melange build --arch=x86_64 font-liberation1.yaml
-      #          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/libspatialindex.yaml:/work/libspatialindex.yaml cgr.dev/chainguard/melange build --arch=x86_64 libspatialindex.yaml
-      #          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/mesa22.yaml:/work/mesa22.yaml cgr.dev/chainguard/melange build --arch=x86_64 mesa22.yaml
-      #          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/libjpeg-turbo2.yaml:/work/libjpeg-turbo2.yaml cgr.dev/chainguard/melange build --arch=x86_64 libjpeg-turbo2.yaml
-      #          docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/tesseract52.yaml:/work/tesseract52.yaml cgr.dev/chainguard/melange build --arch=x86_64 tesseract52.yaml
+         docker run --privileged --rm -v $(pwd):/work cgr.dev/chainguard/melange build --arch=x86_64 poppler.yaml
+         docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/font-liberation1.yaml:/work/font-liberation1.yaml cgr.dev/chainguard/melange build --arch=x86_64 font-liberation1.yaml
+         docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/libspatialindex.yaml:/work/libspatialindex.yaml cgr.dev/chainguard/melange build --arch=x86_64 libspatialindex.yaml
+         docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/mesa22.yaml:/work/mesa22.yaml cgr.dev/chainguard/melange build --arch=x86_64 mesa22.yaml
+         docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/libjpeg-turbo2.yaml:/work/libjpeg-turbo2.yaml cgr.dev/chainguard/melange build --arch=x86_64 libjpeg-turbo2.yaml
+         docker run --privileged --rm -v $(pwd)/packages:/work/packages -v $(pwd)/tesseract52.yaml:/work/tesseract52.yaml cgr.dev/chainguard/melange build --arch=x86_64 tesseract52.yaml
 
